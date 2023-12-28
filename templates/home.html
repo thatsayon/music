@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1 style="border-bottom: 1px solid black;"><center>Music Directory List</center></h1>
+<table class="table" style="width: 90%; margin: auto; margin-top: 2rem;" border="1">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Musician Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Album Rating</th>
+            <th scope="col">Instrument Type</th>
+            <th scope="col">Album Name</th>
+            <th scope="col">Release Date</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ad in adata %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{% for md in mdata %}{% if ad.musician == md %}<a href="{% url 'EditM' md.id %}">{{ md }}</a>{% endif %}{% endfor %}</td>
+            <td>{% for md in mdata %}{% if ad.musician == md %}{{ md.email }}{% endif %}{% endfor %}</td>
+            <td>{{ ad.rating }}</td>
+            <td>{% for md in mdata %}{% if ad.musician == md %}{{ md.instrument_type }}{% endif %}{% endfor %}</td>
+            <td>{{ ad.album_name }}</td>
+            <td>{{ ad.album_release }}</td>
+            <td>
+                <a class="btn btn-primary" href="{% url 'EditA' ad.id %}">Edit</a>
+                <a class="btn btn-primary" href="{% url 'DltA' ad.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+{% endblock %}
